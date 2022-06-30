@@ -4,7 +4,7 @@ This GitHub Action allows you to run pytest and output [GitHub Job Summaries](ht
 
 ```yaml
 - name: Run pytest
-  uses: pavelzw/pytest-action@v1
+  uses: Quantco/pytest-action@v1
   with:
     verbose: true
     emoji: true
@@ -47,7 +47,7 @@ does this automatically for you.
       numpy
 - run: pip install pytest-md pytest-emoji
   shell: bash -l {0}
-- uses: pavelzw/pytest-action@v1
+- uses: Quantco/pytest-action@v1
 ```
 
 ## Example Usage
@@ -76,7 +76,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
         run: pip install pytest pytest-md pytest-emoji
-      - uses: pavelzw/pytest-action@v1
+      - uses: Quantco/pytest-action@v1
         with:
           emoji: false
           verbose: false
