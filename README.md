@@ -80,5 +80,5 @@ jobs:
         with:
           emoji: false
           verbose: false
-          job_summary: true
+          job-summary: true
 ```
