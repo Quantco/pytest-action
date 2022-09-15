@@ -43,7 +43,7 @@ runs:
         echo "::group::Run pytest ${args[@]}"
         pytest "${args[@]}"
         echo "::endgroup::"
-      shell: bash -el {0}  # use login shell to source .bashrc for environments
+      shell: bash -el {0}  # use login shell to source .bash_profile for environments
     - name: Add report to summary
       # run even if pytest fails
       if: always() && inputs.job-summary == 'true'
