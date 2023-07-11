@@ -22,7 +22,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install pytest pytest-md pytest-emoji
-      - uses: Quantco/pytest-action@v2
+      - uses: ./.
 
   micromamba-tests:
     name: Run tests (setup-micromamba)
@@ -46,4 +46,4 @@ jobs:
             pytest
             pytest-md
             pytest-emoji
-      - uses: Quantco/pytest-action@v2
+      - uses: ./.
