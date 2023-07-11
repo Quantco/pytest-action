@@ -53,6 +53,8 @@ runs:
         else
           gsed=sed
         fi
+        echo $gsed
+        which gsed || true
         $gsed -i 's/# Test Report/# ${{ inputs.report-title }}/' report.md
         if [ ${{ inputs.click-to-expand }} = true ]; then
           $gsed -i '2i <details><summary>Click to expand!</summary>' report.md
