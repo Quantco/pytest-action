@@ -53,6 +53,7 @@ runs:
         else
           gsed=sed
         fi
+        find /usr | grep gsed
         echo $gsed
         which gsed || true
         $gsed -i 's/# Test Report/# ${{ inputs.report-title }}/' report.md
