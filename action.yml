@@ -48,7 +48,7 @@ runs:
       # run even if pytest fails
       if: always() && inputs.job-summary == 'true'
       run: |
-        sed -i 's/# Test Report/# ${{ inputs.report-title }}/' report.md
+        sed -i'' -e 's/# Test Report/# ${{ inputs.report-title }}/' report.md
         if [ ${{ inputs.click-to-expand }} = true ]; then
           sed -i'' -e '2i <details><summary>Click to expand!</summary>' report.md
           sed -i'' -e '$a</details>' report.md
