@@ -48,18 +48,12 @@ runs:
       # run even if pytest fails
       if: always() && inputs.job-summary == 'true'
       run: |
-        if which gsed >/dev/null 2>/dev/null; then
-          gsed=gsed
-        else
-          gsed=sed
-        fi
-        find /usr | grep gsed
-        echo $gsed
-        which gsed || true
-        $gsed -i 's/# Test Report/# ${{ inputs.report-title }}/' report.md
+        ${{ inputs.report-title }} > final_report.md
         if [ ${{ inputs.click-to-expand }} = true ]; then
-          $gsed -i '2i <details><summary>Click to expand!</summary>' report.md
-          $gsed -i '$a</details>' report.md
+          tail -n -1 report.md >> final_report.md
         fi
-        cat report.md >> $GITHUB_STEP_SUMMARY
+        if [ ${{ inputs.click-to-expand }} = true ]; then
+          echo "</details>" >> final_report.md
+        fi
+        cat final_report.md >> $GITHUB_STEP_SUMMARY
       shell: bash
