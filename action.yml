@@ -51,8 +51,9 @@ runs:
         cat report.md
         echo "# ${{ inputs.report-title }}" > final_report.md
         if [ ${{ inputs.click-to-expand }} = true ]; then
-          tail -n -1 report.md >> final_report.md
+          echo "<details><summary>Click to expand!</summary>" >> final_report.md
         fi
+        tail -n -1 report.md >> final_report.md
         if [ ${{ inputs.click-to-expand }} = true ]; then
           echo "</details>" >> final_report.md
         fi
