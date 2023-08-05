@@ -34,18 +34,21 @@ runs:
   steps:
     - name: Run pytest
       run: |
+        echo "::group::..."
         args=()
         if [ ${{ inputs.verbose }} = true ]; then args+=('-v'); fi
         if [ ${{ inputs.job-summary }} = true ]; then args+=('--md=report.md'); fi
         if [ ${{ inputs.emoji }} = true ]; then args+=('--emoji'); fi
         # unpack custom arguments from spaces to array
         args+=(`echo "${{ inputs.custom-arguments }}"`)
+        echo "::endgroup::"
         pytest "${args[@]}"
       shell: bash -el {0}  # use login shell to source .bash_profile for environments
     - name: Add report to summary
       # run even if pytest fails
       if: always() && inputs.job-summary == 'true'
       run: |
+        echo "::group::..."
         echo "# ${{ inputs.report-title }}" > final_report.md
         if [ ${{ inputs.click-to-expand }} = true ]; then
           echo "<details><summary>Click to expand!</summary>" >> final_report.md
@@ -55,4 +58,9 @@ runs:
           echo "</details>" >> final_report.md
         fi
         cat final_report.md >> $GITHUB_STEP_SUMMARY
+        echo "::endgroup::"
+        echo "================================================================================"
+        echo "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+        echo "================================================================================"
+        env | grep GITHUB_
       shell: bash
