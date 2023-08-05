@@ -48,7 +48,7 @@ runs:
       # run even if pytest fails
       if: always() && inputs.job-summary == 'true'
       run: |
-        ${{ inputs.report-title }} > final_report.md
+        echo "${{ inputs.report-title }}" > final_report.md
         if [ ${{ inputs.click-to-expand }} = true ]; then
           tail -n -1 report.md >> final_report.md
         fi
