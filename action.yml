@@ -40,9 +40,7 @@ runs:
         if [ ${{ inputs.emoji }} = true ]; then args+=('--emoji'); fi
         # unpack custom arguments from spaces to array
         args+=(`echo "${{ inputs.custom-arguments }}"`)
-        echo "::group::Run pytest ${args[@]}"
         pytest "${args[@]}"
-        echo "::endgroup::"
       shell: bash -el {0}  # use login shell to source .bash_profile for environments
     - name: Add report to summary
       # run even if pytest fails
@@ -50,16 +48,11 @@ runs:
       run: |
         echo "# ${{ inputs.report-title }}" > final_report.md
         if [ ${{ inputs.click-to-expand }} = true ]; then
-          >> final_report.md
           echo "<details><summary>Click to expand!</summary>" >> final_report.md
-          >> final_report.md
         fi
-        tail -n -1 report.md >> final_report.md
+        tail -n+2 report.md >> final_report.md
         if [ ${{ inputs.click-to-expand }} = true ]; then
-          >> final_report.md
           echo "</details>" >> final_report.md
-          >> final_report.md
         fi
-        cat final_report.md
         cat final_report.md >> $GITHUB_STEP_SUMMARY
       shell: bash
