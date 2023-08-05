@@ -49,7 +49,6 @@ runs:
       # run even if pytest fails
       if: always() && inputs.job-summary == 'true'
       run: |
-
         echo "::group::..."
         echo "# ${{ inputs.report-title }}" > final_report.md
         if [ ${{ inputs.click-to-expand }} = true ]; then
