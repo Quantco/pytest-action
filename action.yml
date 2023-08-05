@@ -34,7 +34,6 @@ runs:
   steps:
     - name: Run pytest
       run: |
-
         echo "::group::..."
         args=()
         if [ ${{ inputs.verbose }} = true ]; then args+=('-v'); fi
