@@ -5,13 +5,13 @@ on: [push]
 jobs:
   python-tests:
     name: Run tests (setup-python)
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
 
     steps:
       - uses: actions/checkout@v3
-      - uses: szenius/set-timezone@dd47655c84241eec2ffa0a855959c16c0920c3c4
-        with:
-          timezoneLinux: 'Europe/Berlin'
       - name: Set up Python 3.x
         uses: actions/setup-python@v3
         with:
@@ -19,26 +19,25 @@ jobs:
       - name: Install dependencies
         run: |
           pip install pytest pytest-md pytest-emoji
-      - uses: Quantco/pytest-action@v2
+      - uses: ./.
 
   micromamba-tests:
-    name: Run tests (provision-with-micromamba)
-    runs-on: ubuntu-latest
+    name: Run tests (setup-micromamba)
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
 
     steps:
       - uses: actions/checkout@v3
-      - uses: szenius/set-timezone@dd47655c84241eec2ffa0a855959c16c0920c3c4
-        with:
-          timezoneLinux: 'Europe/Berlin'
       - name: Set up Conda env
-        uses: mamba-org/provision-with-micromamba@a319a818023c3a5a448a60bd72e0c633408fbccc
+        uses: mamba-org/setup-micromamba@26f6049e816ea975907411e951e67afe92d0e984
         with:
           environment-name: myenv
-          channels: conda-forge
-          environment-file: false
-          extra-specs: |
+          cache-environment: true
+          create-args: >-
             python
             pytest
             pytest-md
             pytest-emoji
-      - uses: Quantco/pytest-action@v2
+      - uses: ./.
