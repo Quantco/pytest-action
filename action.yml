@@ -34,6 +34,7 @@ runs:
   steps:
     - name: Run pytest
       run: |
+
         echo "::group::..."
         args=()
         if [ ${{ inputs.verbose }} = true ]; then args+=('-v'); fi
@@ -48,6 +49,7 @@ runs:
       # run even if pytest fails
       if: always() && inputs.job-summary == 'true'
       run: |
+
         echo "::group::..."
         echo "# ${{ inputs.report-title }}" > final_report.md
         if [ ${{ inputs.click-to-expand }} = true ]; then
@@ -59,8 +61,8 @@ runs:
         fi
         cat final_report.md >> $GITHUB_STEP_SUMMARY
         echo "::endgroup::"
+        echo
         echo "================================================================================"
-        echo "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+        echo Markdown summaries: "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
         echo "================================================================================"
-        env | grep GITHUB_
       shell: bash
