@@ -31,7 +31,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Set up Conda env
-        uses: mamba-org/setup-micromamba@26f6049e816ea975907411e951e67afe92d0e984
+        uses: mamba-org/setup-micromamba@6f557b5d550740e9d6a7e9780042b4536d488f4d
         with:
           environment-name: myenv
           cache-environment: true
