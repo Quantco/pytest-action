@@ -93,7 +93,7 @@ jobs:
         python-version: ["3.6", "3.7", "3.8", "3.9"]
 
     steps:
-      - uses: szenius/set-timezone@v1.2
+      - uses: szenius/set-timezone@ce9c440bc3af4f51b28d7ef7e5c47ee8f26c8dcb
         with:
           timezoneLinux: "Europe/Berlin"
       - uses: actions/checkout@v3
