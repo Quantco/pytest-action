@@ -40,6 +40,7 @@ runs:
       id: pytest
       run: |
         echo "::group::..."
+        set -x
         REPORT="$(mktemp)"
         echo "report-path=$REPORT" >> $GITHUB_OUTPUT
         args=()
