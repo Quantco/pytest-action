@@ -47,7 +47,7 @@ runs:
         if [ ${{ inputs.job-summary }} = true ]; then args+=("--md=$REPORT"); fi
         if [ ${{ inputs.emoji }} = true ]; then args+=('--emoji'); fi
         # unpack custom arguments from spaces to array
-        args+=(`echo "${{ inputs.custom-arguments }}"`)
+        args+=(`echo ${{ inputs.custom-arguments }}`)
         echo "::endgroup::"
         ${{ inputs.custom-pytest }} "${args[@]}"
       shell: bash -el {0}  # use login shell to source .bashrc for environments
