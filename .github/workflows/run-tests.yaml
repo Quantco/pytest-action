@@ -39,7 +39,7 @@ jobs:
           pip install pytest pytest-md pytest-emoji
       - uses: ./.
         with:
-          custom-arguments: -k "not end2end" -m "not comprehensive"
+          custom-arguments: -k "not failed"
 
   micromamba-tests:
     name: Run tests (setup-micromamba)
