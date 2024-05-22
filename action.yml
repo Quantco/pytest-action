@@ -39,7 +39,7 @@ runs:
     - name: Run pytest
       id: pytest
       run: |
-        REPORT="$(mktemp)"
+        REPORT="${{ runner.temp }}/raw_out"
         echo "report-path=$REPORT" >> $GITHUB_OUTPUT
         ${{ inputs.custom-pytest }}${{ inputs.verbose == 'true' && ' -v' || '' }}${{ inputs.job-summary == 'true' && ' --md=$REPORT' || '' }}${{ inputs.emoji == 'true' && ' --emoji' || '' }}${{ inputs.custom-arguments != '' && ' ' || '' }}${{ inputs.custom-arguments }}
       shell: bash -el {0}  # use login shell to source .bashrc for environments
@@ -48,7 +48,7 @@ runs:
       if: always() && inputs.job-summary == 'true'
       run: |
         echo "::group::..."
-        FINAL_REPORT="$(mktemp)"
+        FINAL_REPORT="${{ runner.temp }}/report_out"
         echo "# ${{ inputs.report-title }}" > "$FINAL_REPORT"
         if [ ${{ inputs.click-to-expand }} = true ]; then
           echo "<details><summary>Click to expand!</summary>" >> "$FINAL_REPORT"
