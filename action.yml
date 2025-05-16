@@ -33,11 +33,16 @@ inputs:
     description: Add 'Click to expand' to the report
     required: false
     default: 'true'
+  working-directory:
+    description: The working directory where pytest should run.
+    required: false
+    default: '.'
 runs:
   using: "composite"
   steps:
     - name: Run pytest
       id: pytest
+      working-directory: ${{ inputs.working-directory }}
       run: |
         REPORT="${{ runner.temp }}/raw_out"
         echo "report-path=$REPORT" >> $GITHUB_OUTPUT
@@ -46,6 +51,7 @@ runs:
     - name: Add report to summary
       # run even if pytest fails
       if: always() && inputs.job-summary == 'true'
+      working-directory: ${{ inputs.working-directory }}
       run: |
         echo "::group::..."
         FINAL_REPORT="${{ runner.temp }}/report_out"
