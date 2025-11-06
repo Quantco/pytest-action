@@ -4,7 +4,7 @@ on:
   push:
     tags:
       # only release von 'vx.y.z' tags, not on the 'vx' tag itself
-      - "v*.*.*"
+      - 'v*.*.*'
 permissions:
   contents: write
 
